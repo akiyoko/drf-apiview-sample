@@ -4,6 +4,8 @@ from api.models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
+    """本モデル用シリアライザ"""
+
     class Meta:
         model = Book
-        fields = '__all__'
+        exclude = ('created_at',)

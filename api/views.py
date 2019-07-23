@@ -9,6 +9,8 @@ from .serializers import BookSerializer
 
 
 class BookFilter(filters.FilterSet):
+    """本モデル用フィルタクラス"""
+
     price__lte = filters.NumberFilter(field_name='price', lookup_expr='lte')
 
     class Meta:
@@ -17,9 +19,11 @@ class BookFilter(filters.FilterSet):
 
 
 class BookListCreateAPIView(views.APIView):
+    """本モデルの取得（一覧）・登録用APIクラス"""
 
     def get(self, request, *args, **kwargs):
-        """本の取得（一覧）用API"""
+        """本モデルの取得（一覧）用APIに対応するハンドラメソッド"""
+
         # モデルオブジェクトを取得
         queryset = Book.objects.all()
         # フィルタリング
@@ -34,7 +38,8 @@ class BookListCreateAPIView(views.APIView):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
-        """本の登録用API"""
+        """本モデルの登録用APIに対応するハンドラメソッド"""
+
         # シリアライザオブジェクトを作成
         serializer = BookSerializer(data=request.data)
         # バリデーション
@@ -46,8 +51,11 @@ class BookListCreateAPIView(views.APIView):
 
 
 class BookRetrieveUpdateDestroyAPIView(views.APIView):
+    """本モデルの取得（詳細）・更新・一部更新・削除用APIクラス"""
+
     def get(self, request, pk, *args, **kwargs):
-        """本の取得（詳細）用API"""
+        """本モデルの取得（詳細）用APIに対応するハンドラメソッド"""
+
         # モデルオブジェクトを取得
         book = get_object_or_404(Book, **{'pk': pk})
         # シリアライザオブジェクトを作成
@@ -55,7 +63,8 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def put(self, request, pk, *args, **kwargs):
-        """本の更新用API"""
+        """本モデルの更新用APIに対応するハンドラメソッド"""
+
         # モデルオブジェクトを取得
         book = get_object_or_404(Book, **{'pk': pk})
         # シリアライザオブジェクトを作成
@@ -68,7 +77,8 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def patch(self, request, pk, *args, **kwargs):
-        """本の一部更新用API"""
+        """本モデルの一部更新用APIに対応するハンドラメソッド"""
+
         # モデルオブジェクトを取得
         book = get_object_or_404(Book, **{'pk': pk})
         # シリアライザオブジェクトを作成
@@ -81,7 +91,8 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def delete(self, request, pk, *args, **kwargs):
-        """本の削除用API"""
+        """本モデルの削除用APIに対応するハンドラメソッド"""
+
         # モデルオブジェクトを取得
         book = get_object_or_404(Book, **{'pk': pk})
         # モデルオブジェクトを削除

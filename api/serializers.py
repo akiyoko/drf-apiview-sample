@@ -4,7 +4,10 @@ from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
+    """本モデル用シリアライザ"""
+
     class Meta:
+        # 対象のモデルクラスを指定
         model = Book
-        fields = '__all__'
-        # fields = ('id', 'title', 'price')
+        # 利用しないモデルのフィールドを指定
+        exclude = ('created_at',)

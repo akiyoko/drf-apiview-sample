@@ -6,6 +6,8 @@ from .serializers import BookSerializer
 
 
 class BookFilter(filters.FilterSet):
+    """本モデル用フィルタクラス"""
+
     price__lte = filters.NumberFilter(field_name='price', lookup_expr='lte')
 
     class Meta:
@@ -14,7 +16,8 @@ class BookFilter(filters.FilterSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
-    """本のCRUD用API"""
+    """本モデルのCRUD用APIクラス"""
+
     serializer_class = BookSerializer
     queryset = Book.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
