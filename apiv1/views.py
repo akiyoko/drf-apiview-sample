@@ -18,7 +18,7 @@ class BookFilter(filters.FilterSet):
 
 
 class BookListCreateAPIView(generics.ListCreateAPIView):
-    """本モデルの取得（一覧）・登録用APIクラス"""
+    """本モデルの取得（一覧）・登録APIクラス"""
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -31,7 +31,7 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
 
 
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """本モデルの取得（詳細）・更新・一部更新・削除用APIクラス"""
+    """本モデルの取得（詳細）・更新・一部更新・削除APIクラス"""
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
