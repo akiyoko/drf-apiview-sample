@@ -34,7 +34,7 @@ class BookListCreateAPIView(views.APIView):
             raise ValidationError(filterset.errors)
         # シリアライザオブジェクトを作成
         serializer = BookSerializer(instance=filterset.qs, many=True)
-        # レスポンスオブジェクトを返す
+        # レスポンスオブジェクトを作成して返す
         return Response(serializer.data, status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
@@ -42,11 +42,11 @@ class BookListCreateAPIView(views.APIView):
 
         # シリアライザオブジェクトを作成
         serializer = BookSerializer(data=request.data)
-        # バリデーション
+        # バリデーションを実行
         serializer.is_valid(raise_exception=True)
         # モデルオブジェクトを登録
         serializer.save()
-        # レスポンスオブジェクトを返す
+        # レスポンスオブジェクトを作成して返す
         return Response(serializer.data, status.HTTP_201_CREATED)
 
 
@@ -69,11 +69,11 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         book = get_object_or_404(Book, pk=pk)
         # シリアライザオブジェクトを作成
         serializer = BookSerializer(instance=book, data=request.data)
-        # バリデーション
+        # バリデーションを実行
         serializer.is_valid(raise_exception=True)
         # モデルオブジェクトを更新
         serializer.save()
-        # レスポンスオブジェクトを返す
+        # レスポンスオブジェクトを作成して返す
         return Response(serializer.data, status.HTTP_200_OK)
 
     def patch(self, request, pk, *args, **kwargs):
@@ -83,11 +83,11 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         book = get_object_or_404(Book, pk=pk)
         # シリアライザオブジェクトを作成
         serializer = BookSerializer(instance=book, data=request.data, partial=True)
-        # バリデーション
+        # バリデーションを実行
         serializer.is_valid(raise_exception=True)
         # モデルオブジェクトを一部更新
         serializer.save()
-        # レスポンスオブジェクトを返す
+        # レスポンスオブジェクトを作成して返す
         return Response(serializer.data, status.HTTP_200_OK)
 
     def delete(self, request, pk, *args, **kwargs):
@@ -97,5 +97,5 @@ class BookRetrieveUpdateDestroyAPIView(views.APIView):
         book = get_object_or_404(Book, pk=pk)
         # モデルオブジェクトを削除
         book.delete()
-        # レスポンスオブジェクトを返す
+        # レスポンスオブジェクトを作成して返す
         return Response(status=status.HTTP_204_NO_CONTENT)
