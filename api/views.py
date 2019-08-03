@@ -24,10 +24,8 @@ class BookListCreateAPIView(views.APIView):
     def get(self, request, *args, **kwargs):
         """本モデルの取得（一覧）APIに対応するハンドラメソッド"""
 
-        # モデルオブジェクトを取得
-        queryset = Book.objects.all()
-        # フィルタリング
-        filterset = BookFilter(request.query_params, queryset=queryset)
+        # モデルオブジェクトをクエリ文字列を使ってフィルタリングした結果を取得
+        filterset = BookFilter(request.query_params, queryset=Book.objects.all())
         if not filterset.is_valid():
             # クエリ文字列のバリデーションがNGの場合は400エラー
             # Note: DateFilterは「YYYY-MM-DD」、DateTimeFilterは「YYYY-MM-DD hh:mm:ss」で指定
