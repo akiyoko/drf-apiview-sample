@@ -1,6 +1,8 @@
 import logging
 
-from rest_framework import status
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
+from rest_framework import exceptions, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -29,12 +31,15 @@ def custom_exception_handler(exc, context):
 
     # NotFoundやMethodNotAllowedなど、その他のAPIExceptionの場合
     elif response is not None:
+        if isinstance(exc, Http404):
+            exc = exceptions.NotFound()
+        elif isinstance(exc, PermissionDenied):
+            exc = exceptions.PermissionDenied()
         logger.error(exc)
         response.data = {
             'success': False,
             'messages': [exc.detail],
         }
-        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
 
     # その他の例外の場合
     else:
