@@ -9,6 +9,8 @@ class Book(models.Model):
 
     class Meta:
         db_table = 'book'
+        ordering = ['created_at']
+        verbose_name = verbose_name_plural = '本'
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(verbose_name='タイトル', max_length=20)
