@@ -132,6 +132,7 @@ STATIC_URL = '/static/'
 # REST Framework
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
+    'COERCE_DECIMAL_TO_STRING': False,
 }
 
 
