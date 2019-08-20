@@ -35,7 +35,7 @@ def custom_exception_handler(exc, context):
             exc = exceptions.NotFound()
         elif isinstance(exc, PermissionDenied):
             exc = exceptions.PermissionDenied()
-        logger.error(exc)
+        logger.error(exc, exc_info=True)
         response.data = {
             'success': False,
             'messages': [exc.detail],
@@ -43,7 +43,7 @@ def custom_exception_handler(exc, context):
 
     # その他の例外の場合
     else:
-        logger.error(exc)
+        logger.error(exc, exc_info=True)
         set_rollback()
         response = Response(
             {
