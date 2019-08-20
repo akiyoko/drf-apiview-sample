@@ -124,7 +124,7 @@ class Book(models.Model):
     price = models.IntegerField(verbose_name='価格', null=True)
     publisher = models.ForeignKey(Publisher, verbose_name='出版社',
                                   on_delete=models.SET_NULL, null=True)
-    authors = models.ManyToManyField(Author, verbose_name='著者', null=True)
+    authors = models.ManyToManyField(Author, verbose_name='著者', blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
