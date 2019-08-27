@@ -20,5 +20,5 @@ class BookViewSet(viewsets.ModelViewSet):
 
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [filters.DjangoFilterBackend]
     filterset_class = BookFilter

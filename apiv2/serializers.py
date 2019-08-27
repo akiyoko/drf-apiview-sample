@@ -8,4 +8,4 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        exclude = ('created_at',)
+        exclude = ['created_at']
