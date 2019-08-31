@@ -11,6 +11,7 @@ router.register('books', apiv2_views.BookViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('api/books/', views.BookListCreateAPIView.as_view()),
     path('api/books/<pk>/', views.BookRetrieveUpdateDestroyAPIView.as_view()),
     path('api/v1/books/', apiv1_views.BookListCreateAPIView.as_view()),

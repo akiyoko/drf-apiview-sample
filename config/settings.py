@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # My applications
     'api.apps.ApiConfig',
     'apiv1.apps.Apiv1Config',
+    'apiv2.apps.Apiv2Config',
 ]
 
 MIDDLEWARE = [
