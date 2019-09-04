@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'apiv1.apps.Apiv1Config',
     'apiv2.apps.Apiv2Config',
+    'apitest.apps.ApitestConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,9 +134,9 @@ STATIC_URL = '/static/'
 
 # REST Framework
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    'COERCE_DECIMAL_TO_STRING': False,
+    # 'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
+    # 'COERCE_DECIMAL_TO_STRING': False,
 }
 
 
