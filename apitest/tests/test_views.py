@@ -37,13 +37,13 @@ class TestBookListCreateAPIView(APITestCase):
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 201)
         book = Book.objects.get()
-        expected_data = {
+        expected_json_dict = {
             'id': str(book.id),
             'title': book.title,
             'price': book.price,
             'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
-        self.assertJSONEqual(response.content, expected_data)
+        self.assertJSONEqual(response.content, expected_json_dict)
 
     def test_create_bad_request(self):
         """本モデルの登録APIへのPOSTリクエスト（異常系：バリデーションNG）"""
@@ -87,10 +87,10 @@ class TestBookListCreateAPIView(APITestCase):
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 200)
         book = Book.objects.get()
-        expected_data = {
+        expected_json_dict = {
             'id': str(book.id),
             'title': params['title'],
             'price': params['price'],
             'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
-        self.assertJSONEqual(response.content, expected_data)
+        self.assertJSONEqual(response.content, expected_json_dict)
