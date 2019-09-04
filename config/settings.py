@@ -139,6 +139,11 @@ REST_FRAMEWORK = {
     # 'COERCE_DECIMAL_TO_STRING': False,
 }
 
+# djangorestframework-simplejwt
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 
 LOGGING = {
     'version': 1,

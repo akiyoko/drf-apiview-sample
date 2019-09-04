@@ -1,7 +1,9 @@
 from rest_framework import generics
-from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from api.models import Book
+from .models import Book
 from .serializers import BookSerializer
 
 
@@ -17,3 +19,5 @@ class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]

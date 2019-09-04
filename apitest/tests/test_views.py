@@ -1,22 +1,34 @@
-from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.utils.timezone import localtime
 from rest_framework.test import APITestCase
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from apitest.models import Book
 
 
 class TestBookListCreateAPIView(APITestCase):
-    """TODO: テストクラス"""
+    """BookListCreateAPIViewのテストクラス"""
 
     TARGET_URL = '/api/test/books/'
-    TARGET_URL_WITH_PK = '/api/test/books/{pk}/'
+    TARGET_URL_WITH_PK = '/api/test/books/{}/'
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # ログインユーザーを初期登録
+        cls.user = get_user_model().objects.create_user(
+            username='user',
+            email='user@example.com',
+            password='secret',
+        )
 
     def test_create_success(self):
-        """TODO: テストメソッド"""
+        """本モデルの登録APIへのPOSTリクエスト（正常系）"""
 
         # APIリクエストを実行
         params = {
             'title': 'aaa',
-            'price': 1000,
+            'price': 111,
         }
         response = self.client.post(self.TARGET_URL, params, format='json')
 
@@ -29,17 +41,17 @@ class TestBookListCreateAPIView(APITestCase):
             'id': str(book.id),
             'title': book.title,
             'price': book.price,
-            'created_at': str(timezone.localtime(book.created_at)).replace(' ', 'T'),
+            'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
         self.assertJSONEqual(response.content, expected_data)
 
-    def test_create_invalid(self):
-        """TODO: テストメソッド"""
+    def test_create_bad_request(self):
+        """本モデルの登録APIへのPOSTリクエスト（異常系：バリデーションNG）"""
 
         # APIリクエストを実行
         params = {
             'title': '',
-            'price': 1000,
+            'price': 111,
         }
         response = self.client.post(self.TARGET_URL, params, format='json')
 
@@ -47,50 +59,38 @@ class TestBookListCreateAPIView(APITestCase):
         self.assertEqual(Book.objects.count(), 0)
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 400)
-        self.assertCountEqual([x for x in response.data], ['title'])
-        self.assertCountEqual([x.code for x in response.data['title']], ['blank'])
 
-# class TestBookListCreateAPIView2(APITestCase):
-#     TARGET_URL = '/api/v1/books/'
-#     TARGET_URL_WITH_PK = '/api/v1/books/{pk}/'
-#
-#     # TODO
-#     def test_list_success(self):
-#         book = Book.objects.create(title='test', price=1000)
-#         input_params = {
-#             'title': book.title,
-#             'price': book.price,
-#         }
-#         # レスポンス取得
-#         response = self.client.get(self.TARGET_URL)
-#
-#         # 結果判定
-#         self.assertEqual(response.status_code, 200)
-#         expected_data = [{
-#             'id': str(book.id),
-#             'title': book.title,
-#             'price': book.price,
-#         }]
-#         content_data = json.loads(response.content.decode('utf-8'))
-#         self.assertEqual(len(content_data), 1)
-#         for expected, actual in zip(expected_data, content_data):
-#             self.assertDictEqual(actual, expected)
-#
-#     # TODO
-#     def test_create_success(self):
-#         params = {
-#             'title': 'test',
-#             'price': 1000,
-#         }
-#         # レスポンス取得
-#         response = self.client.post(self.TARGET_URL, params, format='json')
-#
-#         # 結果判定
-#         self.assertEqual(response.status_code, 201)
-#         book = Book.objects.get(title=params['title'])
-#         expected_data = {
-#             'id': str(book.id),
-#             **params,
-#         }
-#         content_data = json.loads(response.content.decode('utf-8'))
-#         self.assertEqual(content_data, expected_data)
+    def test_update_success(self):
+        """本モデルの更新APIへのPUTリクエスト（正常系）"""
+
+        # ログイン（Cookie認証の場合）
+        # self.client.login(username='user', password='secret')
+        # ログイン（JWT認証の場合）
+        token = str(RefreshToken.for_user(self.user).access_token)
+        self.client.credentials(HTTP_AUTHORIZATION='JWT ' + token)
+
+        # APIリクエストを実行
+        book = Book.objects.create(
+            title='aaa',
+            price=111,
+        )
+        params = {
+            'id': book.id,
+            'title': 'bbb',
+            'price': 222,
+        }
+        response = self.client.put(
+            self.TARGET_URL_WITH_PK.format(book.id), params,
+            format='json',
+        )
+
+        # レスポンスの内容を検証
+        self.assertEqual(response.status_code, 200)
+        book = Book.objects.get()
+        expected_data = {
+            'id': str(book.id),
+            'title': params['title'],
+            'price': params['price'],
+            'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
+        }
+        self.assertJSONEqual(response.content, expected_data)

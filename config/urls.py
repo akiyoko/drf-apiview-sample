@@ -21,7 +21,7 @@ urlpatterns = [
     path('api/v1/books/<pk>/', apiv1_views.BookRetrieveUpdateDestroyAPIView.as_view()),
     path('api/v2/', include(router.urls)),
     path('api/test/books/', apitest_views.BookListCreateAPIView.as_view()),
-    path('api/test/books/', apitest_views.BookRetrieveUpdateDestroyAPIView.as_view()),
+    path('api/test/books/<pk>/', apitest_views.BookRetrieveUpdateDestroyAPIView.as_view()),
 ]
 
 if settings.DEBUG:
