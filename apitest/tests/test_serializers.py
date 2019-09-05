@@ -33,7 +33,7 @@ class TestBookSerializer(TestCase):
 
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), False)
-        self.assertCountEqual([x for x in serializer.errors], ['title'])
+        self.assertCountEqual(serializer.errors.keys(), ['title'])
         self.assertCountEqual([x.code for x in serializer.errors['title']], ['blank'])
 
     def test_input_invalid_if_title_is_blank_and_price_is_invalid(self):
@@ -48,7 +48,7 @@ class TestBookSerializer(TestCase):
 
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), False)
-        self.assertCountEqual([x for x in serializer.errors], ['title', 'price'])
+        self.assertCountEqual(serializer.errors.keys(), ['title', 'price'])
         self.assertCountEqual([x.code for x in serializer.errors['title']], ['blank'])
         self.assertCountEqual([x.code for x in serializer.errors['price']], ['invalid'])
 
