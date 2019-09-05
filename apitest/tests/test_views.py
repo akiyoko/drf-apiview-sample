@@ -10,17 +10,6 @@ class TestBookListCreateAPIView(APITestCase):
     """BookListCreateAPIViewのテストクラス"""
 
     TARGET_URL = '/api/test/books/'
-    TARGET_URL_WITH_PK = '/api/test/books/{}/'
-
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        # ログインユーザーを初期登録
-        cls.user = get_user_model().objects.create_user(
-            username='user',
-            email='user@example.com',
-            password='secret',
-        )
 
     def test_create_success(self):
         """本モデルの登録APIへのPOSTリクエスト（正常系）"""
@@ -59,6 +48,23 @@ class TestBookListCreateAPIView(APITestCase):
         self.assertEqual(Book.objects.count(), 0)
         # レスポンスの内容を検証
         self.assertEqual(response.status_code, 400)
+
+
+class TestBookRetrieveUpdateDestroyAPIView(APITestCase):
+    """BookRetrieveUpdateDestroyAPIViewのテストクラス"""
+
+    TARGET_URL_WITH_PK = '/api/test/books/{}/'
+
+    @classmethod
+    def setUpClass(cls):
+        # トランザクションを開始するため、必ず親クラスのsetUpClass()を最初に呼ぶこと
+        super().setUpClass()
+        # ログインユーザーを初期登録
+        cls.user = get_user_model().objects.create_user(
+            username='user',
+            email='user@example.com',
+            password='secret',
+        )
 
     def test_update_success(self):
         """本モデルの更新APIへのPUTリクエスト（正常系）"""

@@ -34,7 +34,10 @@ class TestBookSerializer(TestCase):
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), False)
         self.assertCountEqual(serializer.errors.keys(), ['title'])
-        self.assertCountEqual([x.code for x in serializer.errors['title']], ['blank'])
+        self.assertCountEqual(
+            [x.code for x in serializer.errors['title']],
+            ['blank'],
+        )
 
     def test_input_invalid_if_title_is_blank_and_price_is_invalid(self):
         """入力データのバリデーション（NG：titleが空文字、priceが文字列）"""
@@ -49,11 +52,17 @@ class TestBookSerializer(TestCase):
         # バリデーションの結果を検証
         self.assertEqual(serializer.is_valid(), False)
         self.assertCountEqual(serializer.errors.keys(), ['title', 'price'])
-        self.assertCountEqual([x.code for x in serializer.errors['title']], ['blank'])
-        self.assertCountEqual([x.code for x in serializer.errors['price']], ['invalid'])
+        self.assertCountEqual(
+            [x.code for x in serializer.errors['title']],
+            ['blank'],
+        )
+        self.assertCountEqual(
+            [x.code for x in serializer.errors['price']],
+            ['invalid'],
+        )
 
     def test_output_data(self):
-        """出力データの内容を検証"""
+        """出力データの内容検証"""
 
         # シリアライザを作成
         book = Book.objects.create(
