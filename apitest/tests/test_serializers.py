@@ -40,7 +40,7 @@ class TestBookSerializer(TestCase):
         )
 
     def test_input_invalid_if_title_is_blank_and_price_is_invalid(self):
-        """入力データのバリデーション（NG：titleが空文字、priceが文字列）"""
+        """入力データのバリデーション（NG：titleが空文字、priceが数値でない）"""
 
         # シリアライザを作成
         input_data = {

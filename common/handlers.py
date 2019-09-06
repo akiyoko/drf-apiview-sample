@@ -6,7 +6,7 @@ from rest_framework import exceptions, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from rest_framework.views import exception_handler, set_rollback
+from rest_framework.views import exception_handler
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,6 @@ def custom_exception_handler(exc, context):
     # その他の例外の場合
     else:
         logger.error(exc, exc_info=True)
-        set_rollback()
         response = Response(
             {
                 'success': False,

@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 # REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    # 'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
+    # 'EXCEPTION_HANDLER': 'common.handlers.custom_exception_handler',
     # 'COERCE_DECIMAL_TO_STRING': False,
 }
 
