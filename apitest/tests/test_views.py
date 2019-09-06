@@ -6,8 +6,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apitest.models import Book
 
 
-class TestBookListCreateAPIView(APITestCase):
-    """BookListCreateAPIViewのテストクラス"""
+class TestBookCreateAPIView(APITestCase):
+    """BookCreateAPIViewのテストクラス"""
 
     TARGET_URL = '/api/test/books/'
 
@@ -50,8 +50,8 @@ class TestBookListCreateAPIView(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
-class TestBookRetrieveUpdateDestroyAPIView(APITestCase):
-    """BookRetrieveUpdateDestroyAPIViewのテストクラス"""
+class TestBookUpdateAPIView(APITestCase):
+    """BookUpdateAPIViewのテストクラス"""
 
     TARGET_URL_WITH_PK = '/api/test/books/{}/'
 
@@ -86,8 +86,7 @@ class TestBookRetrieveUpdateDestroyAPIView(APITestCase):
             'price': 222,
         }
         response = self.client.put(
-            self.TARGET_URL_WITH_PK.format(book.id), params,
-            format='json',
+            self.TARGET_URL_WITH_PK.format(book.id), params, format='json',
         )
 
         # レスポンスの内容を検証

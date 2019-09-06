@@ -7,15 +7,15 @@ from .models import Book
 from .serializers import BookSerializer
 
 
-class BookListCreateAPIView(generics.ListCreateAPIView):
-    """本モデルの取得（一覧）・登録APIクラス"""
+class BookCreateAPIView(generics.CreateAPIView):
+    """本モデルの登録APIクラス"""
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """本モデルの取得（詳細）・更新・一部更新・削除APIクラス"""
+class BookUpdateAPIView(generics.UpdateAPIView):
+    """本モデルの更新・一部更新APIクラス"""
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
