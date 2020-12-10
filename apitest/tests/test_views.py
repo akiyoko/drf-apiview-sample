@@ -3,7 +3,7 @@ from django.utils.timezone import localtime
 from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from apitest.models import Book
+from shop.models import Book
 
 
 class TestBookCreateAPIView(APITestCase):

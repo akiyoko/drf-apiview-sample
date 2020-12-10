@@ -2,7 +2,7 @@ import time
 
 from django.core.management.base import BaseCommand
 
-from api.models import Book
+from shop.models import Book
 
 
 class Command(BaseCommand):

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     # My applications
+    'shop.apps.ShopConfig',
     'api.apps.ApiConfig',
     'apiv1.apps.Apiv1Config',
     'apiv2.apps.Apiv2Config',

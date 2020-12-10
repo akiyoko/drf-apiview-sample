@@ -4,7 +4,7 @@ from rest_framework import status, views
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
-from .models import Book
+from shop.models import Book
 from .serializers import BookSerializer
 
 

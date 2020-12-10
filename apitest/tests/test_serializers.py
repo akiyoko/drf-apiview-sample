@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.utils.timezone import localtime
 
-from apitest.models import Book
 from apitest.serializers import BookSerializer
+from shop.models import Book
 
 
 class TestBookSerializer(TestCase):
