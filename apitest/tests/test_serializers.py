@@ -76,6 +76,8 @@ class TestBookSerializer(TestCase):
             'id': str(book.id),
             'title': book.title,
             'price': book.price,
+            'publisher': None,
+            'authors': [],
             'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
         self.assertDictEqual(serializer.data, expected_data)

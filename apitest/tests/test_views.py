@@ -30,6 +30,8 @@ class TestBookCreateAPIView(APITestCase):
             'id': str(book.id),
             'title': book.title,
             'price': book.price,
+            'publisher': None,
+            'authors': [],
             'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
         self.assertJSONEqual(response.content, expected_json_dict)
@@ -96,6 +98,8 @@ class TestBookUpdateAPIView(APITestCase):
             'id': str(book.id),
             'title': params['title'],
             'price': params['price'],
+            'publisher': None,
+            'authors': [],
             'created_at': str(localtime(book.created_at)).replace(' ', 'T'),
         }
         self.assertJSONEqual(response.content, expected_json_dict)
