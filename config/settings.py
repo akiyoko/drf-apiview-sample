@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     # My applications
     'shop.apps.ShopConfig',
-    'api.apps.ApiConfig',
+    'apiv0.apps.Apiv0Config',
     'apiv1.apps.Apiv1Config',
     'apiv2.apps.Apiv2Config',
     'apitest.apps.ApitestConfig',
